@@ -1,0 +1,7 @@
+node_modules
+dist
+.git
+.npm
+*.log
+.env
+pmc-nest-source
