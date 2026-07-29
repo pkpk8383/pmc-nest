@@ -1,0 +1,93 @@
+<main>
+    <!-- ==================================================== INTRO + FORM -->
+    <section class="pmc-contact" aria-label="Contact us">
+      <div class="pmc-container">
+        <div class="pmc-contact__inner">
+          <div class="pmc-contact__intro">
+            <span class="pmc-tag">Connect with us</span>
+            <h1 class="pmc-contact__title">Positive outcomes start with a <span>conversation.</span></h1>
+            <p class="pmc-contact__text">Get in touch to learn more about how we work shoulder-to-shoulder with public sector leaders to reimagine government services and programs.</p>
+          </div>
+
+          <div class="pmc-form-card">
+            <form class="pmc-form" action="#" method="post" novalidate data-validate>
+              <div class="pmc-form__grid">
+                <div class="pmc-field">
+                  <label class="pmc-field__label" for="contact-name">Name<span class="pmc-field__req">*</span></label>
+                  <input class="pmc-input" type="text" id="contact-name" name="name" placeholder="Full name" required>
+                  <span class="pmc-field__error">Please enter your name.</span>
+                </div>
+                <div class="pmc-field">
+                  <label class="pmc-field__label" for="contact-ministry">Ministry<span class="pmc-field__req">*</span></label>
+                  <input class="pmc-input" type="text" id="contact-ministry" name="ministry" placeholder="Ministry name" required>
+                  <span class="pmc-field__error">Please enter the ministry.</span>
+                </div>
+                <div class="pmc-field">
+                  <label class="pmc-field__label" for="contact-department">Department<span class="pmc-field__req">*</span></label>
+                  <input class="pmc-input" type="text" id="contact-department" name="department" placeholder="Department" required>
+                  <span class="pmc-field__error">Please enter the department.</span>
+                </div>
+                <div class="pmc-field">
+                  <label class="pmc-field__label" for="contact-phone">Phone Number<span class="pmc-field__req">*</span></label>
+                  <input class="pmc-input" type="tel" id="contact-phone" name="phone" placeholder="Phone number" pattern="[0-9+\-\s]{7,15}" required>
+                  <span class="pmc-field__error">Please enter a valid phone number.</span>
+                </div>
+                <div class="pmc-field pmc-field--full">
+                  <label class="pmc-field__label" for="contact-email">Email<span class="pmc-field__req">*</span></label>
+                  <input class="pmc-input" type="email" id="contact-email" name="email" placeholder="Write your email ID" required>
+                  <span class="pmc-field__error">Please enter a valid email address.</span>
+                </div>
+                <div class="pmc-field pmc-field--full">
+                  <label class="pmc-field__label" for="contact-message">Message<span class="pmc-field__req">*</span></label>
+                  <textarea class="pmc-textarea" id="contact-message" name="message" placeholder="Tell us about your project or query" required></textarea>
+                  <span class="pmc-field__error">Please enter a message.</span>
+                </div>
+              </div>
+              <div class="pmc-form__actions">
+                <button type="submit" class="pmc-btn pmc-btn--dark pmc-contact__submit">
+                  Send message
+                  <img class="pmc-btn__arrow pmc-btn__arrow--double" src="/images/icons/chevron-double.svg" alt="" aria-hidden="true">
+                </button>
+                <p class="pmc-form__success" data-form-success hidden role="status">Thank you — your message has been sent.</p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================== INFO + MAP -->
+    <section class="pmc-contact-map" id="locations" aria-label="Our office and locations">
+      <span class="pmc-contact-map__glow pmc-contact-map__glow--left" aria-hidden="true"></span>
+      <span class="pmc-contact-map__glow pmc-contact-map__glow--right" aria-hidden="true"></span>
+      <div class="pmc-container">
+        <div class="pmc-contact-map__inner">
+          <article class="pmc-contact-card">
+            <figure class="pmc-contact-card__media">
+              <img src="/images/contact-domino.png" alt="A hand stopping a row of falling dominoes">
+            </figure>
+            <div class="pmc-contact-card__body">
+              <p class="pmc-contact-card__lead">Contact us now to schedule a consultation at <a href="mailto:info@pmcgov.com">info@pmcgov.com</a></p>
+              <hr class="pmc-contact-card__rule" aria-hidden="true">
+              <p class="pmc-contact-card__label">Corporate Office</p>
+              <p class="pmc-contact-card__address">501-5th Floor, Veritas Business Suites, Golf Course Road, Sector 53, Gurugram, Haryana 122002</p>
+            </div>
+          </article>
+
+          <div class="pmc-contact-map__map">
+            <img class="pmc-contact-map__img" src="/images/contact-india-map.png" alt="Map of India highlighting Positive Mantra Consulting locations">
+            <span class="pmc-map-pin pmc-map-pin--srinagar"><img src="/images/icons/location-pin.svg" alt="" aria-hidden="true">Srinagar</span>
+            <span class="pmc-map-pin pmc-map-pin--jammu"><img src="/images/icons/location-pin.svg" alt="" aria-hidden="true">Jammu</span>
+            <span class="pmc-map-pin pmc-map-pin--chandigarh"><img src="/images/icons/location-pin.svg" alt="" aria-hidden="true">Chandigarh</span>
+            <span class="pmc-map-pin pmc-map-pin--dehradun"><img src="/images/icons/location-pin.svg" alt="" aria-hidden="true">Dehradun</span>
+            <span class="pmc-map-pin pmc-map-pin--gurgaon"><img src="/images/icons/location-pin.svg" alt="" aria-hidden="true">Gurgaon</span>
+            <span class="pmc-map-pin pmc-map-pin--delhi"><img src="/images/icons/location-pin.svg" alt="" aria-hidden="true">New Delhi</span>
+            <span class="pmc-map-pin pmc-map-pin--ranchi"><img src="/images/icons/location-pin.svg" alt="" aria-hidden="true">Ranchi</span>
+            <span class="pmc-map-pin pmc-map-pin--raipur"><img src="/images/icons/location-pin.svg" alt="" aria-hidden="true">Raipur</span>
+            <span class="pmc-map-pin pmc-map-pin--mumbai"><img src="/images/icons/location-pin.svg" alt="" aria-hidden="true">Mumbai</span>
+            <img class="pmc-contact-map__arrows" src="/images/contact-arrows.svg" alt="" aria-hidden="true">
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
