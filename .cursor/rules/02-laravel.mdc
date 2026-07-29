@@ -1,0 +1,41 @@
+Laravel Standards
+
+Controllers
+
+Controllers should only:
+
+- Validate request
+- Call Service
+- Return Response
+
+Business logic belongs in Services.
+
+Database logic belongs in Repository.
+
+Never write SQL in Controller.
+
+Validation:
+
+Use FormRequest.
+
+Routes
+
+Group by prefix.
+
+Use Route Model Binding.
+
+Use Resource Controllers.
+
+Use Queues for:
+
+- Emails
+- Notifications
+- Heavy Processing
+
+Use Events when possible.
+
+Always paginate large datasets.
+
+Never use N+1 queries.
+
+Always eager load relationships.

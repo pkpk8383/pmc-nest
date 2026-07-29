@@ -1,0 +1,31 @@
+WordPress Standards
+
+Never modify core files.
+
+Use Child Theme.
+
+Escape all output.
+
+Sanitize all input.
+
+Use:
+
+esc_html()
+
+esc_attr()
+
+wp_nonce_field()
+
+check_admin_referer()
+
+Always use:
+
+WP_Query
+
+instead of direct SQL when possible.
+
+Use hooks.
+
+Avoid plugin conflicts.
+
+Never disable security plugins.

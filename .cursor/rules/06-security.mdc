@@ -1,0 +1,35 @@
+Security
+
+Prevent
+
+SQL Injection
+
+XSS
+
+CSRF
+
+Mass Assignment
+
+RCE
+
+Use:
+
+Prepared Statements
+
+Validation
+
+Authorization
+
+Policies
+
+Never expose:
+
+.env
+
+storage
+
+logs
+
+keys
+
+Never generate insecure code.

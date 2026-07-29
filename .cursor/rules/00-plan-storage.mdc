@@ -1,0 +1,63 @@
+---
+description: Ensures every development plan is saved inside the project
+alwaysApply: true
+---
+
+# Plan Storage Policy
+
+Whenever creating, revising, or finalizing any implementation,
+development, architecture, migration, testing, deployment, database,
+backend, frontend, or integration plan:
+
+1. Treat the currently opened workspace as the project root.
+
+2. Save every plan inside this project directory:
+
+   `.cursor/plans/`
+
+3. Create the `.cursor/plans/` directory if it does not already exist.
+
+4. Save the plan as a Markdown file before beginning implementation.
+
+5. Use this filename format:
+
+   `YYYY-MM-DD-HHmm-short-plan-name.plan.md`
+
+   Example:
+
+   `2026-06-25-1430-video-import.plan.md`
+
+6. Never save plans outside:
+   - The project root
+   - `Docs/`
+   - Temporary folders
+   - The user home directory
+
+7. When requirements for an existing task change, update the existing
+   plan file instead of creating unnecessary duplicates.
+
+8. Every plan should contain:
+   - Title
+   - Objective
+   - Requirements
+   - Assumptions
+   - Backend changes
+   - Frontend changes
+   - Database changes
+   - API changes
+   - Security considerations
+   - Implementation steps
+   - Testing steps
+   - Risks and dependencies
+   - Completion checklist
+
+9. A plan is not complete until it has been written to a file inside
+   `.cursor/plans/`.
+
+10. After saving a plan, mention its exact relative path in the response.
+
+11. Do not begin implementation until the plan is saved, unless the user
+    explicitly asks to implement immediately.
+
+12. If Cursor Plan Mode creates an unsaved in-memory plan, save or copy
+    the final plan into `.cursor/plans/` before implementation.

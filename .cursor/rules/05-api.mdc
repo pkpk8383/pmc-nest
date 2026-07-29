@@ -1,0 +1,28 @@
+API Standards
+
+REST only.
+
+JSON response:
+
+{
+    success,
+    message,
+    data,
+    errors
+}
+
+Use:
+
+HTTP Status Codes
+
+Validation
+
+Rate Limiting
+
+API Resources
+
+Version:
+
+/api/v1/
+
+Never expose internal IDs unnecessarily.

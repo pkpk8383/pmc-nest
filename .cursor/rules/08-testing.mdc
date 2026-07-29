@@ -1,0 +1,17 @@
+Testing
+
+Generate:
+
+Feature Tests
+
+Unit Tests
+
+Database Tests
+
+Use Pest whenever possible.
+
+Test edge cases.
+
+Test validation.
+
+Test authorization.

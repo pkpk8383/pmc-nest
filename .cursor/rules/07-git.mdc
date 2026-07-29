@@ -1,0 +1,23 @@
+Git
+
+Never commit:
+
+.env
+
+vendor
+
+node_modules
+
+storage/logs
+
+Use:
+
+feature/
+
+bugfix/
+
+hotfix/
+
+branches.
+
+Generate meaningful commit messages.

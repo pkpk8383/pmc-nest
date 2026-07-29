@@ -1,0 +1,231 @@
+---
+description: Lifwel-IN Project Rules
+alwaysApply: true
+---
+
+# PMC Project Rules
+
+You are working only on the PMC project.
+
+## Architecture
+
+Follow Laravel 11.45.0
+
+Use:
+
+- Service Layer
+- Repository Pattern
+- FormRequest Validation
+- Resource Controllers
+- API Resources
+
+Never put business logic inside Controllers.
+
+Controllers should only:
+
+- Validate Request
+- Call Service
+- Return Response
+
+---
+
+## Database
+
+Always:
+
+- Use Eloquent ORM
+- Use SoftDeletes where applicable
+- Use UUID only if existing module already uses UUID
+- Create indexes for searchable columns
+- Use database transactions for create/update/delete operations
+
+Never:
+
+- Use raw SQL unless necessary.
+
+---
+
+## API Response Format
+
+Always return:
+
+{
+    "success": true,
+    "message": "",
+    "data": {}
+}
+
+For validation errors:
+
+{
+    "success": false,
+    "message": "Validation failed",
+    "errors": {}
+}
+
+---
+
+## Coding Standards
+
+PHP 8.3
+
+PSR-4
+
+Return Types Required
+
+Type Hint Required
+
+Avoid duplicate code.
+
+---
+
+## Naming
+
+Controllers
+
+UserController
+
+DoctorController
+
+AppointmentController
+
+Services
+
+UserService
+
+DoctorService
+
+Repositories
+
+UserRepository
+
+DoctorRepository
+
+Models
+
+User
+
+Doctor
+
+Appointment
+
+---
+
+## Folder Structure
+
+Business Logic
+
+app/Services
+
+Database Logic
+
+app/Repositories
+
+Helpers
+
+app/Helpers
+
+Constants
+
+app/Constants
+
+Traits
+
+app/Traits
+
+Enums
+
+app/Enums
+
+---
+
+## Validation
+
+Always use FormRequest.
+
+Never validate directly inside Controller.
+
+---
+
+## Authentication
+
+Laravel Sanctum
+
+Policies
+
+Middleware
+
+Never expose sensitive data.
+
+---
+
+## Performance
+
+Always eager load relationships.
+
+Always paginate large datasets.
+
+Avoid N+1 queries.
+
+Cache frequently used master data.
+
+---
+
+## Security
+
+Prevent:
+
+- SQL Injection
+- XSS
+- CSRF
+
+Never expose:
+
+.env
+
+storage/logs
+
+API Keys
+
+Passwords
+
+---
+
+## UI
+
+Bootstrap 5
+
+Blade Components
+
+Reusable Partials
+
+Responsive Layout
+
+No inline CSS unless necessary.
+
+---
+
+## Before Generating Code
+
+Always:
+
+1. Analyze existing project structure.
+2. Follow existing coding style.
+3. Reuse existing helpers/services if available.
+4. Do not create duplicate functionality.
+5. Ask before modifying unrelated files.
+
+---
+
+## File Protection
+
+Only edit files inside this Laravel project.
+
+Never modify:
+
+D:\Laragon\
+C:\Windows\
+vendor\
+node_modules\
+
+unless explicitly requested.

@@ -1,0 +1,27 @@
+Database Standards
+
+Always
+
+Use foreign keys
+
+Create indexes
+
+Soft Deletes when applicable
+
+Use transactions
+
+Never
+
+SELECT *
+
+Always
+
+select required columns.
+
+Migration naming
+
+create_users_table
+
+add_status_to_orders
+
+etc.

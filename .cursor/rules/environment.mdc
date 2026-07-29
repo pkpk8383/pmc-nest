@@ -1,0 +1,71 @@
+---
+description: Protect system and Laragon files
+globs:
+alwaysApply: true
+---
+
+# Workspace Protection Rules
+
+## Allowed
+
+Only modify files inside the current project workspace.
+
+Example:
+
+D:\Laragon\www\my-project\
+
+---
+
+## Forbidden
+
+Never modify any files outside the current workspace.
+
+Never edit:
+
+- D:\Laragon\
+- D:\Laragon\bin\
+- D:\Laragon\etc\
+- D:\Laragon\usr\
+- C:\Windows\
+- C:\Program Files\
+- C:\Program Files (x86)\
+- C:\Users\<username>\AppData\
+
+Never modify:
+
+- php.ini
+- httpd.conf
+- nginx.conf
+- hosts
+- Laragon configuration
+- Windows Registry
+- Git configuration
+
+---
+
+## Confirmation Required
+
+Before modifying anything outside the workspace:
+
+1. Stop.
+2. Explain why it is required.
+3. Ask for user confirmation.
+4. Do not continue until confirmation is received.
+
+---
+
+## Safety
+
+Never delete files outside the workspace.
+
+Never rename files outside the workspace.
+
+Never install software globally.
+
+Never change system PATH.
+
+Never change Windows settings.
+
+Never restart Apache, MySQL or Laragon without permission.
+
+Never create files outside the workspace.

@@ -1,0 +1,19 @@
+# General Rules
+
+Always:
+
+- Explain plan before coding
+- Create reusable code
+- Use type hints
+- Use return types
+- Use comments only when needed
+
+Never:
+
+- Hardcode values
+- Repeat logic
+- Create unnecessary files
+
+Always optimize performance.
+
+Never change unrelated files.
