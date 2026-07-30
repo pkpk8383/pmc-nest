@@ -15,6 +15,7 @@ async function bootstrap() {
   // Trust Laragon / PHP reverse proxy (X-Forwarded-*)
   app.set('trust proxy', 1);
 
+
   // Static assets
   app.useStaticAssets(join(__dirname, '..', 'public'), { prefix: '/' });
 
@@ -43,9 +44,14 @@ async function bootstrap() {
     next();
   });
 
+<<<<<<< HEAD
   await app.listen(port, host);
   const appUrl = process.env.APP_URL || `http://${host}:${port}`;
   console.log(`🚀 PMC NestJS app running on http://${host}:${port}`);
   console.log(`🌐 Laragon URL: ${appUrl}`);
+=======
+  await app.listen(3000);
+  console.log(`🚀 PMC NestJS app running on http://localhost:3000`);
+>>>>>>> 047c847c7a30d77add787000163d5f2b4bfad3ee
 }
 bootstrap();

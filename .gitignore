@@ -36,6 +36,7 @@ lerna-debug.log*
 !.vscode/extensions.json
 
 # dotenv environment variable files
+.env
 .env.development.local
 .env.test.local
 .env.production.local
@@ -49,4 +50,7 @@ lerna-debug.log*
 # source HTML (already converted)
 pmc-nest-source/
 .npm/
+<<<<<<< HEAD
 *.zip
+=======
+>>>>>>> 047c847c7a30d77add787000163d5f2b4bfad3ee
