@@ -1,0 +1,26 @@
+# =============================================================================
+# UPLOAD THIS FILE TO THE DOMAIN ROOT (parent of /pmc/)
+# Live location example: public_html/.htaccess  (NOT public_html/pmc/.htaccess)
+#
+# If Ultramind Labs already has a root .htaccess, MERGE these rules into it
+# (keep RewriteEngine On once, place these PMC rules near the top).
+#
+# Why this is required:
+# HTML links like /about hit https://ultramindlabs.com/about
+# That request NEVER enters the /pmc/ folder, so pmc/.htaccess cannot see it.
+# These root rules redirect:
+#   /about → https://ultramindlabs.com/pmc/about
+# =============================================================================
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Do not touch requests that are already under /pmc/
+  RewriteRule ^pmc(/|$) - [L]
+
+  # Menu / page segments used by PMC (no .html in browser URL)
+  RewriteRule ^(about|consulting|capacity-building|technology|career|contact)/?$ https://ultramindlabs.com/pmc/$1 [R=301,L]
+
+  # Same segments if requested with .html
+  RewriteRule ^(about|consulting|capacity-building|technology|career|contact)\.html$ https://ultramindlabs.com/pmc/$1 [R=301,L]
+</IfModule>

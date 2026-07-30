@@ -1,27 +1,30 @@
-# Positive Mantra Consulting — clean URLs (hide .html)
-# Requires Apache mod_rewrite (enabled by default in Laragon)
+# PMC NestJS — Laragon (pmc-nest.test)
+# Apache DocumentRoot is the project root; Nest runs on Node (default :3000).
+# mod_proxy is often disabled in Laragon, so requests go through index.php.
 
-DirectoryIndex index.html
+Options -Indexes
+DirectoryIndex index.php
+
+# Block sensitive paths
+<IfModule mod_authz_core.c>
+  <FilesMatch "(^\.env|^\.git|composer\.(json|lock)|package(-lock)?\.json|tsconfig.*\.json|nest-cli\.json)">
+    Require all denied
+  </FilesMatch>
+</IfModule>
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
 
-  # 1) External redirects: strip .html from the browser URL
-  RewriteCond %{THE_REQUEST} \s/+index\.html[\s?] [NC]
-  RewriteRule ^index\.html$ / [R=301,L]
+  # Deny direct web access to app internals
+  RewriteRule ^(src|dist|node_modules|views|\.cursor|\.git)(/|$) - [F,L]
 
-  RewriteCond %{THE_REQUEST} \s/+(.+?)\.html[\s?] [NC]
-  RewriteRule ^ %1 [R=301,L]
+  # Serve static assets from /public without hitting Node
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{DOCUMENT_ROOT}/public%{REQUEST_URI} -f
+  RewriteRule ^(.*)$ public/$1 [L]
 
-  # 2) Do not rewrite real non-.html files or directories
-  RewriteCond %{REQUEST_FILENAME} -f [OR]
-  RewriteCond %{REQUEST_FILENAME} -d
-  RewriteRule ^ - [L]
-
-  # 3) Internally map /page → page.html
-  RewriteCond %{REQUEST_FILENAME}.html -f
-  RewriteRule ^(.+?)/?$ $1.html [L]
+  # Front controller → PHP reverse proxy → NestJS
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^ index.php [QSA,L]
 </IfModule>
-
-Options -Indexes
