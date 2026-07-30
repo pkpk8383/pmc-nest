@@ -350,7 +350,9 @@ ul {
   transition: transform 0.2s ease;
 }
 
-.pmc-nav .show > .nav-link .nav-caret {
+.pmc-nav .show > .nav-link .nav-caret,
+.pmc-mega-dropdown:hover > .nav-link .nav-caret,
+.pmc-mega-dropdown.is-open > .nav-link .nav-caret {
   transform: rotate(180deg);
 }
 
@@ -483,6 +485,173 @@ ul {
 .pmc-nav .dropdown-item:focus {
   background-color: var(--pmc-bg-soft);
   color: var(--pmc-primary);
+}
+
+/* -------------------------------------------------------------- Mega menu */
+.pmc-navbar > .pmc-container {
+  position: relative;
+}
+
+@media (min-width: 992px) {
+  .pmc-mega-dropdown {
+    position: static;
+  }
+}
+
+.pmc-nav .dropdown-menu.pmc-mega {
+  --pmc-mega-bg: #3a3a3a;
+  --pmc-mega-line: rgba(255, 255, 255, 0.18);
+  --pmc-mega-muted: rgba(255, 255, 255, 0.72);
+  display: none;
+  padding: 0;
+  margin-top: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  overflow: visible;
+}
+
+.pmc-nav .dropdown-menu.pmc-mega.show,
+.pmc-mega-dropdown.is-open > .dropdown-menu.pmc-mega {
+  display: block;
+}
+
+@media (min-width: 992px) {
+  .pmc-nav .dropdown-menu.pmc-mega {
+    position: absolute;
+    /* Sit under the navbar; bridge covers the visual gap so hover does not drop */
+    top: 100%;
+    left: 50%;
+    right: auto;
+    width: min(1040px, calc(100vw - 48px));
+    transform: translateX(-50%);
+    z-index: 1050;
+    /* Invisible hit-area between parent link and panel */
+    padding-top: 18px;
+  }
+
+  /* Extra bridge upward into the nav row so the cursor never “falls through” */
+  .pmc-nav .dropdown-menu.pmc-mega::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 18px;
+  }
+}
+
+.pmc-mega__panel {
+  display: grid;
+  grid-template-columns: minmax(200px, 0.92fr) minmax(240px, 1.15fr) minmax(220px, 0.95fr);
+  align-items: stretch;
+  min-height: 220px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 16px;
+  background-color: var(--pmc-mega-bg);
+  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.28);
+  overflow: hidden;
+}
+
+.pmc-mega__intro {
+  position: relative;
+  padding: 36px 32px 36px 36px;
+  border-right: 1px solid var(--pmc-mega-line);
+}
+
+.pmc-mega__accent {
+  display: block;
+  width: 42px;
+  height: 4px;
+  border-radius: 2px;
+  background-color: var(--pmc-primary);
+  margin-bottom: 18px;
+}
+
+.pmc-mega__title {
+  margin: 0 0 12px;
+  font-family: var(--pmc-font-head);
+  font-size: clamp(26px, 2.4vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--pmc-white);
+}
+
+.pmc-mega__desc {
+  margin: 0;
+  max-width: 240px;
+  font-family: var(--pmc-font-body);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--pmc-mega-muted);
+}
+
+.pmc-mega__links {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 18px 28px;
+}
+
+.pmc-mega__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 4px;
+  border-bottom: 1px solid var(--pmc-mega-line);
+  color: var(--pmc-white);
+  font-family: var(--pmc-font-body);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.35;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.pmc-mega__link:last-child {
+  border-bottom: 0;
+}
+
+.pmc-mega__link span {
+  flex: 1 1 auto;
+}
+
+.pmc-mega__arrow {
+  width: 22px;
+  height: 12px;
+  flex-shrink: 0;
+  object-fit: contain;
+  transition: transform 0.2s ease;
+}
+
+.pmc-mega__link:hover,
+.pmc-mega__link:focus,
+.pmc-mega__link.is-active {
+  color: var(--pmc-primary);
+}
+
+.pmc-mega__link:hover .pmc-mega__arrow,
+.pmc-mega__link:focus .pmc-mega__arrow {
+  transform: translateX(3px);
+}
+
+.pmc-mega__media {
+  padding: 18px 18px 18px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pmc-mega__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-height: 184px;
+  object-fit: cover;
+  border-radius: 12px;
 }
 
 .pmc-navbar .navbar-toggler {
@@ -741,6 +910,10 @@ ul {
   letter-spacing: -0.48px;
   margin-bottom: 8px;
   text-shadow: none;
+}
+
+.pmc-hero__title span {
+  color: var(--pmc-primary);
 }
 
 .pmc-hero__text {
@@ -1080,9 +1253,8 @@ ul {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   grid-template-areas:
-    "intro lead"
-    "slider slider"
-    ". cta";
+    "intro aside"
+    "slider slider";
   column-gap: 48px;
   row-gap: 24px;
   align-items: start;
@@ -1101,11 +1273,19 @@ ul {
   margin: 0;
 }
 
-.pmc-sectors__lead {
-  grid-area: lead;
+.pmc-sectors__aside {
+  grid-area: aside;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 20px;
   max-width: 563px;
-  margin: 0;
   justify-self: end;
+  width: 100%;
+}
+
+.pmc-sectors__lead {
+  margin: 0;
   text-align: right;
 }
 
@@ -1120,10 +1300,21 @@ ul {
 }
 
 .pmc-sectors__cta {
-  grid-area: cta;
-  justify-self: end;
   width: auto;
-  margin-top: -8px;
+  margin: 0;
+  background-color: rgba(255, 248, 242, 0.72);
+  border: 1.5px solid var(--pmc-white);
+  border-radius: 50px;
+  height: 48px;
+  padding-inline: 26px 24px;
+  gap: 12px;
+  box-shadow: 0 2px 12px rgba(221, 102, 38, 0.06);
+}
+
+.pmc-sectors__cta:hover {
+  background-color: rgba(255, 255, 255, 0.95);
+  color: var(--pmc-ink);
+  transform: translateY(-2px);
 }
 
 .pmc-sectors__arrow {
@@ -1407,16 +1598,27 @@ ul {
 .pmc-connect__map {
   position: relative;
   flex: 1 1 480px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   min-height: 520px;
 }
 
-.pmc-connect__map > img:not(.pmc-connect__arrows) {
+.pmc-connect__map-frame {
+  position: relative;
+  width: min(100%, 520px);
+  aspect-ratio: 1000 / 1096;
+  margin-inline: auto;
+}
+
+.pmc-connect__map-frame > img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: contain;
   object-position: center;
+  pointer-events: none;
 }
 
 .pmc-connect__arrows {
@@ -1456,20 +1658,40 @@ ul {
   flex-shrink: 0;
   object-fit: contain;
   display: block;
+  position: relative;
+  z-index: 1;
+}
+
+/* Pulse rings anchored to the pin icon (left side), matching design */
+.pmc-map-pin::before,
+.pmc-map-pin::after {
+  content: "";
+  position: absolute;
+  left: 19px;
+  top: 50%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .pmc-map-pin::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
   width: 42px;
   height: 42px;
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(circle, rgba(221, 102, 38, 0.28) 0%, rgba(221, 102, 38, 0) 70%);
-  z-index: -1;
-  pointer-events: none;
+  /* background: radial-gradient(
+    circle,
+    rgba(221, 102, 38, 0.34) 0%,
+    rgba(221, 102, 38, 0.16) 42%,
+    rgba(221, 102, 38, 0) 72%
+  );
+  box-shadow: 0 0 0 6px rgba(221, 102, 38, 0.08); */
+}
+
+.pmc-map-pin::after {
+  width: 64px;
+  height: 64px;
+  /* border: 1.5px solid rgba(221, 102, 38, 0.22); */
+  opacity: 0.9;
 }
 
 .pmc-map-pin:not(:has(img)) {
@@ -1487,15 +1709,25 @@ ul {
   box-shadow: 0 0 0 4px rgba(221, 102, 38, 0.2);
 }
 
-.pmc-map-pin--srinagar   { top: 8%;  left: 44%; }
-.pmc-map-pin--jammu      { top: 18%; left: 30%; }
-.pmc-map-pin--dehradun   { top: 26%; left: 60%; }
-.pmc-map-pin--chandigarh { top: 33%; left: 34%; }
-.pmc-map-pin--delhi      { top: 44%; left: 54%; }
-.pmc-map-pin--gurgaon    { top: 51%; left: 40%; }
-.pmc-map-pin--ranchi     { top: 64%; left: 70%; }
-.pmc-map-pin--raipur     { top: 71%; left: 58%; }
-.pmc-map-pin--mumbai     { top: 80%; left: 30%; }
+.pmc-map-pin:not(:has(img))::after {
+  display: none;
+}
+
+/* Calibrated to design screenshot + india-map.png geography */
+.pmc-map-pin--srinagar   { top: 9.5%;  left: 48%; }
+.pmc-map-pin--jammu      { top: 17%;   left: 27%; }
+.pmc-map-pin--dehradun   { top: 25.5%; left: 57%; }
+.pmc-map-pin--chandigarh { top: 27.5%; left: 25%; }
+.pmc-map-pin--jaipur     { top: 39.5%; left: 21%; }
+.pmc-map-pin--delhi      { top: 41%;   left: 51%; }
+.pmc-map-pin--gurgaon    { top: 48.5%; left: 41%; }
+.pmc-map-pin--ranchi     { top: 53%;   left: 72%; }
+.pmc-map-pin--raipur     { top: 61.5%; left: 45%; }
+.pmc-map-pin--mumbai     { top: 73.5%; left: 27%; }
+.pmc-connect__map--contact .pmc-map-pin--ranchi     { top: 54% !important; left: 71% !important; }
+.pmc-connect__map--contact .pmc-map-pin--raipur     { top: 61% !important; left: 48% !important; }
+.pmc-connect__map--contact .pmc-map-pin--delhi      { top: 38% !important; left: 51% !important; }
+.pmc-connect__map--contact .pmc-map-pin--gurgaon    { top: 45% !important; left: 43% !important; }
 
 /* ==========================================================================
    SHARED SUBPAGE COMPONENTS (Consulting, Capacity, Technology, About, etc.)
@@ -4304,9 +4536,13 @@ ul {
   position: relative;
   z-index: 1;
   display: flex;
-  align-items: center;
-  gap: 4px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: 8px;
   width: 100%;
+  max-width: 100%;
+  padding: 8px 4px 4px;
 }
 
 .pmc-look__num {
@@ -4322,12 +4558,21 @@ ul {
 }
 
 .pmc-look__label {
-  flex: 1 1 auto;
   margin: 0;
-  font-family: var(--pmc-font-body);
+  font-family: var(--pmc-font-head);
   font-weight: 600;
-  font-size: clamp(18px, 1.7vw, 24px);
-  line-height: 30px;
+  font-size: clamp(20px, 1.8vw, 26px);
+  line-height: 1.25;
+  color: var(--pmc-white);
+}
+
+.pmc-look__overlay p {
+  margin: 0;
+  max-width: 100%;
+  font-family: var(--pmc-font-body);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.5;
   color: var(--pmc-white);
 }
 
@@ -4336,6 +4581,7 @@ ul {
   position: relative;
   overflow: hidden;
   padding-top: 72px;
+  padding-bottom: 20px;
   background-color: var(--pmc-bg-soft);
 }
 
@@ -4350,23 +4596,71 @@ ul {
   margin-bottom: 16px;
 }
 
-.pmc-life__gallery {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+.pmc-life__stage {
+  position: relative;
+  width: 100%;
+  padding-block: 12px 28px;
 }
 
-.pmc-life__gallery figure {
-  margin: 0;
-  border-radius: 16px;
+.pmc-life__viewport {
+  position: relative;
+  width: 100%;
   overflow: hidden;
+  perspective: 1100px;
+  perspective-origin: 50% 45%;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
 }
 
-.pmc-life__gallery img {
+.pmc-life__track {
+  display: flex;
+  align-items: stretch;
+  gap: 14px;
+  width: max-content;
+  transform-style: preserve-3d;
+  will-change: transform;
+  animation: pmc-life-marquee 42s linear infinite;
+}
+
+.pmc-life__stage.is-paused .pmc-life__track,
+.pmc-life__stage:hover .pmc-life__track {
+  animation-play-state: paused;
+}
+
+.pmc-life__track figure {
+  position: relative;
+  flex: 0 0 clamp(240px, 28vw, 360px);
+  margin: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  transform-origin: center center;
+  transform-style: preserve-3d;
+  will-change: transform;
+  box-shadow: 0 18px 40px rgba(17, 17, 17, 0.12);
+  backface-visibility: hidden;
+}
+
+.pmc-life__track img {
   display: block;
   width: 100%;
-  height: 300px;
+  height: clamp(200px, 24vw, 280px);
   object-fit: cover;
+  object-position: center;
+}
+
+@keyframes pmc-life-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pmc-life__track {
+    animation: none;
+  }
 }
 
 /* -------------------------------------------------------- Jobs listing */

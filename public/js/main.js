@@ -9,6 +9,8 @@
     initFooterYear();
     initNavShadow();
     initNavSearch();
+    initMegaMenus();
+    initLifeGallery();
     initHeroSlider();
     initSectorSlider();
     initValuesCarousel();
@@ -203,6 +205,256 @@
         }
       });
     });
+  }
+
+  /* Mega menus — hover open on desktop; parent click redirects only if href is a real page. */
+  function initMegaMenus() {
+    var items = document.querySelectorAll(".pmc-mega-dropdown");
+    if (!items.length) {
+      return;
+    }
+
+    var desktopQuery = window.matchMedia("(min-width: 992px)");
+    var closeDelayMs = 220;
+    var closeTimer = null;
+
+    var clearCloseTimer = function () {
+      if (closeTimer) {
+        window.clearTimeout(closeTimer);
+        closeTimer = null;
+      }
+    };
+
+    var closeItem = function (item) {
+      var trigger = item.querySelector(":scope > .nav-link");
+      var menu = item.querySelector(":scope > .dropdown-menu.pmc-mega");
+      item.classList.remove("is-open");
+      if (menu) {
+        menu.classList.remove("show");
+      }
+      if (trigger) {
+        trigger.setAttribute("aria-expanded", "false");
+      }
+    };
+
+    var closeAll = function () {
+      clearCloseTimer();
+      Array.prototype.forEach.call(items, closeItem);
+    };
+
+    var openItem = function (item) {
+      clearCloseTimer();
+      Array.prototype.forEach.call(items, function (other) {
+        if (other !== item) {
+          closeItem(other);
+        }
+      });
+      var trigger = item.querySelector(":scope > .nav-link");
+      var menu = item.querySelector(":scope > .dropdown-menu.pmc-mega");
+      item.classList.add("is-open");
+      if (menu) {
+        menu.classList.add("show");
+      }
+      if (trigger) {
+        trigger.setAttribute("aria-expanded", "true");
+      }
+    };
+
+    var scheduleClose = function (item) {
+      clearCloseTimer();
+      closeTimer = window.setTimeout(function () {
+        closeItem(item);
+        closeTimer = null;
+      }, closeDelayMs);
+    };
+
+    var hasPageHref = function (href) {
+      return Boolean(href) && href !== "#" && href.indexOf("javascript:") !== 0;
+    };
+
+    Array.prototype.forEach.call(items, function (item) {
+      var trigger = item.querySelector(":scope > .nav-link");
+      var menu = item.querySelector(":scope > .dropdown-menu.pmc-mega");
+      if (!trigger || !menu) {
+        return;
+      }
+
+      /* Keep open while pointer is on parent OR mega panel (incl. bridge padding). */
+      item.addEventListener("mouseenter", function () {
+        if (desktopQuery.matches) {
+          openItem(item);
+        }
+      });
+
+      item.addEventListener("mouseleave", function () {
+        if (desktopQuery.matches) {
+          scheduleClose(item);
+        }
+      });
+
+      menu.addEventListener("mouseenter", function () {
+        if (desktopQuery.matches) {
+          openItem(item);
+        }
+      });
+
+      menu.addEventListener("mouseleave", function () {
+        if (desktopQuery.matches) {
+          scheduleClose(item);
+        }
+      });
+
+      trigger.addEventListener("click", function (event) {
+        var href = trigger.getAttribute("href") || "";
+
+        /* No destination page — never navigate; toggle mega on mobile. */
+        if (!hasPageHref(href)) {
+          event.preventDefault();
+          if (!desktopQuery.matches) {
+            if (item.classList.contains("is-open")) {
+              closeItem(item);
+            } else {
+              openItem(item);
+            }
+          }
+          return;
+        }
+
+        /* Has a page (e.g. /about) — allow redirect. */
+        if (!desktopQuery.matches) {
+          return;
+        }
+      });
+    });
+
+    document.addEventListener("click", function (event) {
+      if (desktopQuery.matches) {
+        return;
+      }
+      Array.prototype.forEach.call(items, function (item) {
+        if (!item.classList.contains("is-open")) {
+          return;
+        }
+        if (!item.contains(event.target)) {
+          closeItem(item);
+        }
+      });
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key !== "Escape") {
+        return;
+      }
+      closeAll();
+    });
+  }
+
+  /* Life at PMC — cinematic curved strip + infinite auto-slide. */
+  function initLifeGallery() {
+    var root = document.querySelector("[data-life-gallery]");
+    if (!root) {
+      return;
+    }
+
+    var viewport = root.querySelector(".pmc-life__viewport");
+    var track = root.querySelector("[data-life-track]");
+    if (!viewport || !track) {
+      return;
+    }
+
+    var figures = track.querySelectorAll("figure");
+    if (!figures.length) {
+      return;
+    }
+
+    var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    var rafId = 0;
+    var running = false;
+
+    var applyCurve = function () {
+      var rect = viewport.getBoundingClientRect();
+      if (!rect.width) {
+        return;
+      }
+
+      var center = rect.left + rect.width / 2;
+      var maxAngle = rect.width < 768 ? 18 : 34;
+      var maxDepth = rect.width < 768 ? 24 : 56;
+
+      Array.prototype.forEach.call(figures, function (figure) {
+        var box = figure.getBoundingClientRect();
+        var figureCenter = box.left + box.width / 2;
+        var ratio = (figureCenter - center) / (rect.width * 0.52);
+        var clamped = Math.max(-1, Math.min(1, ratio));
+        var angle = clamped * maxAngle;
+        var depth = -Math.abs(clamped) * maxDepth;
+        figure.style.transform =
+          "rotateY(" + -angle.toFixed(2) + "deg) translateZ(" + depth.toFixed(2) + "px)";
+      });
+    };
+
+    var loop = function () {
+      applyCurve();
+      rafId = window.requestAnimationFrame(loop);
+    };
+
+    var start = function () {
+      if (running || reduceMotion.matches) {
+        applyCurve();
+        return;
+      }
+      running = true;
+      loop();
+    };
+
+    var stop = function () {
+      running = false;
+      if (rafId) {
+        window.cancelAnimationFrame(rafId);
+        rafId = 0;
+      }
+    };
+
+    if ("IntersectionObserver" in window) {
+      var observer = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              root.classList.remove("is-paused");
+              start();
+            } else {
+              root.classList.add("is-paused");
+              stop();
+            }
+          });
+        },
+        { threshold: 0.12 }
+      );
+      observer.observe(root);
+    } else {
+      start();
+    }
+
+    window.addEventListener(
+      "resize",
+      function () {
+        applyCurve();
+      },
+      { passive: true }
+    );
+
+    if (reduceMotion.addEventListener) {
+      reduceMotion.addEventListener("change", function () {
+        if (reduceMotion.matches) {
+          root.classList.add("is-paused");
+          stop();
+          applyCurve();
+        } else {
+          root.classList.remove("is-paused");
+          start();
+        }
+      });
+    }
   }
 
   /* About values carousel — prev/next on first & last visible card edges. */
